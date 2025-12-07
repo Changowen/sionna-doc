@@ -1,0 +1,43 @@
+.school-banner {
+  width: 100%;
+  background: linear-gradient(90deg, #0b1220, #1e293b);
+  color: white;
+  padding: 16px 10px;
+  border-bottom: 4px solid #38bdf8;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.school-banner-content {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.school-logo {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  background: white;
+  border-radius: 8px;
+  padding: 4px;
+}
+
+.school-text {
+  text-align: left;
+}
+
+.school-title {
+  font-size: 26px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.school-subtitle {
+  font-size: 16px;
+  margin-top: 4px;
+  opacity: 0.9;
+}
