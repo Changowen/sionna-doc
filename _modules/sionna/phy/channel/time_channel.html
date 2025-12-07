@@ -1,0 +1,881 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sionna.phy.channel.time_channel &mdash; Sionna 1.2.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/sionna.css?v=3182de8c" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=ca842793"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            Sionna
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#using-pip">Using pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#from-source">From source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#testing">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#developing">Developing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../phy/index.html">Physical Layer (PHY)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../phy/tutorials.html">Tutorials</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../phy/tutorials.html#beginners">Beginners</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../phy/tutorials.html#experts">Experts</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../phy/api/phy.html">API Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../phy/api/config.html">Configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/config.html#sionna.phy.config.Config"><code class="docutils literal notranslate"><span class="pre">Config</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/config.html#sionna.phy.config.Config.np_cdtype"><code class="docutils literal notranslate"><span class="pre">Config.np_cdtype</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/config.html#sionna.phy.config.Config.np_rdtype"><code class="docutils literal notranslate"><span class="pre">Config.np_rdtype</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/config.html#sionna.phy.config.Config.np_rng"><code class="docutils literal notranslate"><span class="pre">Config.np_rng</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/config.html#sionna.phy.config.Config.precision"><code class="docutils literal notranslate"><span class="pre">Config.precision</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/config.html#sionna.phy.config.Config.py_rng"><code class="docutils literal notranslate"><span class="pre">Config.py_rng</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/config.html#sionna.phy.config.Config.seed"><code class="docutils literal notranslate"><span class="pre">Config.seed</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/config.html#sionna.phy.config.Config.tf_cdtype"><code class="docutils literal notranslate"><span class="pre">Config.tf_cdtype</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/config.html#sionna.phy.config.Config.tf_rdtype"><code class="docutils literal notranslate"><span class="pre">Config.tf_rdtype</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/config.html#sionna.phy.config.Config.tf_rng"><code class="docutils literal notranslate"><span class="pre">Config.tf_rng</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../phy/api/fec.html">Forward Error Correction (FEC)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/fec.linear.html">Linear Codes</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/fec.linear.html#sionna.phy.fec.linear.LinearEncoder"><code class="docutils literal notranslate"><span class="pre">LinearEncoder</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/fec.linear.html#sionna.phy.fec.linear.OSDecoder"><code class="docutils literal notranslate"><span class="pre">OSDecoder</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/fec.ldpc.html">Low-Density Parity-Check (LDPC)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/fec.ldpc.html#sionna.phy.fec.ldpc.encoding.LDPC5GEncoder"><code class="docutils literal notranslate"><span class="pre">LDPC5GEncoder</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/fec.ldpc.html#sionna.phy.fec.ldpc.decoding.LDPCBPDecoder"><code class="docutils literal notranslate"><span class="pre">LDPCBPDecoder</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/fec.ldpc.html#sionna.phy.fec.ldpc.decoding.LDPC5GDecoder"><code class="docutils literal notranslate"><span class="pre">LDPC5GDecoder</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/fec.ldpc.html#node-update-functions">Node Update Functions</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/fec.ldpc.html#decoder-callbacks">Decoder Callbacks</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/fec.polar.html">Polar Codes</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/fec.polar.html#sionna.phy.fec.polar.encoding.Polar5GEncoder"><code class="docutils literal notranslate"><span class="pre">Polar5GEncoder</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/fec.polar.html#sionna.phy.fec.polar.encoding.PolarEncoder"><code class="docutils literal notranslate"><span class="pre">PolarEncoder</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/fec.polar.html#sionna.phy.fec.polar.decoding.Polar5GDecoder"><code class="docutils literal notranslate"><span class="pre">Polar5GDecoder</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/fec.polar.html#sionna.phy.fec.polar.decoding.PolarSCDecoder"><code class="docutils literal notranslate"><span class="pre">PolarSCDecoder</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/fec.polar.html#sionna.phy.fec.polar.decoding.PolarSCLDecoder"><code class="docutils literal notranslate"><span class="pre">PolarSCLDecoder</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/fec.polar.html#sionna.phy.fec.polar.decoding.PolarBPDecoder"><code class="docutils literal notranslate"><span class="pre">PolarBPDecoder</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/fec.polar.html#utility-functions">Utility Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/fec.conv.html">Convolutional Codes</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/fec.conv.html#sionna.phy.fec.conv.ConvEncoder"><code class="docutils literal notranslate"><span class="pre">ConvEncoder</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/fec.conv.html#sionna.phy.fec.conv.ViterbiDecoder"><code class="docutils literal notranslate"><span class="pre">ViterbiDecoder</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/fec.conv.html#sionna.phy.fec.conv.BCJRDecoder"><code class="docutils literal notranslate"><span class="pre">BCJRDecoder</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/fec.conv.html#utility-functions">Utility Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/fec.turbo.html">Turbo Codes</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/fec.turbo.html#sionna.phy.fec.turbo.TurboEncoder"><code class="docutils literal notranslate"><span class="pre">TurboEncoder</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/fec.turbo.html#sionna.phy.fec.turbo.TurboDecoder"><code class="docutils literal notranslate"><span class="pre">TurboDecoder</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/fec.turbo.html#utility-functions">Utility Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/fec.crc.html">Cyclic Redundancy Check (CRC)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/fec.crc.html#sionna.phy.fec.crc.CRCEncoder"><code class="docutils literal notranslate"><span class="pre">CRCEncoder</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/fec.crc.html#sionna.phy.fec.crc.CRCDecoder"><code class="docutils literal notranslate"><span class="pre">CRCDecoder</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/fec.interleaving.html">Interleaving</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/fec.interleaving.html#sionna.phy.fec.interleaving.RowColumnInterleaver"><code class="docutils literal notranslate"><span class="pre">RowColumnInterleaver</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/fec.interleaving.html#sionna.phy.fec.interleaving.RandomInterleaver"><code class="docutils literal notranslate"><span class="pre">RandomInterleaver</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/fec.interleaving.html#sionna.phy.fec.interleaving.Turbo3GPPInterleaver"><code class="docutils literal notranslate"><span class="pre">Turbo3GPPInterleaver</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/fec.interleaving.html#sionna.phy.fec.interleaving.Deinterleaver"><code class="docutils literal notranslate"><span class="pre">Deinterleaver</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/fec.scrambling.html">Scrambling</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/fec.scrambling.html#sionna.phy.fec.scrambling.Scrambler"><code class="docutils literal notranslate"><span class="pre">Scrambler</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/fec.scrambling.html#sionna.phy.fec.scrambling.TB5GScrambler"><code class="docutils literal notranslate"><span class="pre">TB5GScrambler</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/fec.scrambling.html#sionna.phy.fec.scrambling.Descrambler"><code class="docutils literal notranslate"><span class="pre">Descrambler</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/fec.utils.html">Utility Functions</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/fec.utils.html#binary-linear-codes">(Binary) Linear Codes</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/fec.utils.html#exit-analysis">EXIT Analysis</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/fec.utils.html#miscellaneous">Miscellaneous</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../phy/api/mapping.html">Mapping</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/mapping.html#sionna.phy.mapping.Constellation"><code class="docutils literal notranslate"><span class="pre">Constellation</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mapping.html#sionna.phy.mapping.Constellation.center"><code class="docutils literal notranslate"><span class="pre">Constellation.center</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mapping.html#sionna.phy.mapping.Constellation.constellation_type"><code class="docutils literal notranslate"><span class="pre">Constellation.constellation_type</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mapping.html#sionna.phy.mapping.Constellation.normalize"><code class="docutils literal notranslate"><span class="pre">Constellation.normalize</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mapping.html#sionna.phy.mapping.Constellation.num_bits_per_symbol"><code class="docutils literal notranslate"><span class="pre">Constellation.num_bits_per_symbol</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mapping.html#sionna.phy.mapping.Constellation.num_points"><code class="docutils literal notranslate"><span class="pre">Constellation.num_points</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mapping.html#sionna.phy.mapping.Constellation.points"><code class="docutils literal notranslate"><span class="pre">Constellation.points</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mapping.html#sionna.phy.mapping.Constellation.show"><code class="docutils literal notranslate"><span class="pre">Constellation.show()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/mapping.html#sionna.phy.mapping.Mapper"><code class="docutils literal notranslate"><span class="pre">Mapper</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mapping.html#sionna.phy.mapping.Mapper.constellation"><code class="docutils literal notranslate"><span class="pre">Mapper.constellation</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/mapping.html#sionna.phy.mapping.Demapper"><code class="docutils literal notranslate"><span class="pre">Demapper</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mapping.html#sionna.phy.mapping.Demapper.constellation"><code class="docutils literal notranslate"><span class="pre">Demapper.constellation</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/mapping.html#sionna.phy.mapping.SymbolDemapper"><code class="docutils literal notranslate"><span class="pre">SymbolDemapper</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/mapping.html#utility-functions">Utility Functions</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mapping.html#sionna.phy.mapping.BinarySource"><code class="docutils literal notranslate"><span class="pre">BinarySource</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mapping.html#sionna.phy.mapping.LLRs2SymbolLogits"><code class="docutils literal notranslate"><span class="pre">LLRs2SymbolLogits</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mapping.html#sionna.phy.mapping.PAMSource"><code class="docutils literal notranslate"><span class="pre">PAMSource</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mapping.html#sionna.phy.mapping.PAM2QAM"><code class="docutils literal notranslate"><span class="pre">PAM2QAM</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mapping.html#sionna.phy.mapping.QAMSource"><code class="docutils literal notranslate"><span class="pre">QAMSource</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mapping.html#sionna.phy.mapping.QAM2PAM"><code class="docutils literal notranslate"><span class="pre">QAM2PAM</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mapping.html#sionna.phy.mapping.SymbolInds2Bits"><code class="docutils literal notranslate"><span class="pre">SymbolInds2Bits</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mapping.html#sionna.phy.mapping.SymbolLogits2LLRs"><code class="docutils literal notranslate"><span class="pre">SymbolLogits2LLRs</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mapping.html#sionna.phy.mapping.SymbolLogits2Moments"><code class="docutils literal notranslate"><span class="pre">SymbolLogits2Moments</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mapping.html#sionna.phy.mapping.SymbolSource"><code class="docutils literal notranslate"><span class="pre">SymbolSource</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../phy/api/channel.wireless.html">Wireless Channel Models</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#sionna.phy.channel.AWGN"><code class="docutils literal notranslate"><span class="pre">AWGN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#flat-fading-channel">Flat-fading channel</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#sionna.phy.channel.FlatFadingChannel"><code class="docutils literal notranslate"><span class="pre">FlatFadingChannel</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#sionna.phy.channel.GenerateFlatFadingChannel"><code class="docutils literal notranslate"><span class="pre">GenerateFlatFadingChannel</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#sionna.phy.channel.ApplyFlatFadingChannel"><code class="docutils literal notranslate"><span class="pre">ApplyFlatFadingChannel</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#sionna.phy.channel.SpatialCorrelation"><code class="docutils literal notranslate"><span class="pre">SpatialCorrelation</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#sionna.phy.channel.KroneckerModel"><code class="docutils literal notranslate"><span class="pre">KroneckerModel</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#sionna.phy.channel.PerColumnModel"><code class="docutils literal notranslate"><span class="pre">PerColumnModel</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#channel-model-interface">Channel model interface</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#sionna.phy.channel.ChannelModel"><code class="docutils literal notranslate"><span class="pre">ChannelModel</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#time-domain-channel">Time domain channel</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#sionna.phy.channel.TimeChannel"><code class="docutils literal notranslate"><span class="pre">TimeChannel</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#sionna.phy.channel.GenerateTimeChannel"><code class="docutils literal notranslate"><span class="pre">GenerateTimeChannel</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#sionna.phy.channel.ApplyTimeChannel"><code class="docutils literal notranslate"><span class="pre">ApplyTimeChannel</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#sionna.phy.channel.cir_to_time_channel"><code class="docutils literal notranslate"><span class="pre">cir_to_time_channel()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#sionna.phy.channel.time_to_ofdm_channel"><code class="docutils literal notranslate"><span class="pre">time_to_ofdm_channel()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#channel-with-ofdm-waveform">Channel with OFDM waveform</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#sionna.phy.channel.OFDMChannel"><code class="docutils literal notranslate"><span class="pre">OFDMChannel</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#sionna.phy.channel.GenerateOFDMChannel"><code class="docutils literal notranslate"><span class="pre">GenerateOFDMChannel</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#sionna.phy.channel.ApplyOFDMChannel"><code class="docutils literal notranslate"><span class="pre">ApplyOFDMChannel</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#sionna.phy.channel.cir_to_ofdm_channel"><code class="docutils literal notranslate"><span class="pre">cir_to_ofdm_channel()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#rayleigh-block-fading">Rayleigh block fading</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#sionna.phy.channel.RayleighBlockFading"><code class="docutils literal notranslate"><span class="pre">RayleighBlockFading</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#gpp-38-901-channel-models">3GPP 38.901 channel models</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#sionna.phy.channel.tr38901.PanelArray"><code class="docutils literal notranslate"><span class="pre">PanelArray</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#sionna.phy.channel.tr38901.Antenna"><code class="docutils literal notranslate"><span class="pre">Antenna</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#sionna.phy.channel.tr38901.AntennaArray"><code class="docutils literal notranslate"><span class="pre">AntennaArray</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#sionna.phy.channel.tr38901.TDL"><code class="docutils literal notranslate"><span class="pre">TDL</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#sionna.phy.channel.tr38901.CDL"><code class="docutils literal notranslate"><span class="pre">CDL</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#sionna.phy.channel.tr38901.UMi"><code class="docutils literal notranslate"><span class="pre">UMi</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#sionna.phy.channel.tr38901.UMa"><code class="docutils literal notranslate"><span class="pre">UMa</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#sionna.phy.channel.tr38901.RMa"><code class="docutils literal notranslate"><span class="pre">RMa</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#external-datasets">External datasets</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#sionna.phy.channel.CIRDataset"><code class="docutils literal notranslate"><span class="pre">CIRDataset</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#utility-functions">Utility functions</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#sionna.phy.channel.subcarrier_frequencies"><code class="docutils literal notranslate"><span class="pre">subcarrier_frequencies()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#sionna.phy.channel.time_lag_discrete_time_channel"><code class="docutils literal notranslate"><span class="pre">time_lag_discrete_time_channel()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#sionna.phy.channel.deg_2_rad"><code class="docutils literal notranslate"><span class="pre">deg_2_rad()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#sionna.phy.channel.rad_2_deg"><code class="docutils literal notranslate"><span class="pre">rad_2_deg()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#sionna.phy.channel.wrap_angle_0_360"><code class="docutils literal notranslate"><span class="pre">wrap_angle_0_360()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#sionna.phy.channel.drop_uts_in_sector"><code class="docutils literal notranslate"><span class="pre">drop_uts_in_sector()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#sionna.phy.channel.relocate_uts"><code class="docutils literal notranslate"><span class="pre">relocate_uts()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#sionna.phy.channel.set_3gpp_scenario_parameters"><code class="docutils literal notranslate"><span class="pre">set_3gpp_scenario_parameters()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#sionna.phy.channel.gen_single_sector_topology"><code class="docutils literal notranslate"><span class="pre">gen_single_sector_topology()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#sionna.phy.channel.gen_single_sector_topology_interferers"><code class="docutils literal notranslate"><span class="pre">gen_single_sector_topology_interferers()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#sionna.phy.channel.exp_corr_mat"><code class="docutils literal notranslate"><span class="pre">exp_corr_mat()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/channel.wireless.html#sionna.phy.channel.one_ring_corr_mat"><code class="docutils literal notranslate"><span class="pre">one_ring_corr_mat()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../phy/api/channel.optical.html">Optical Channel Models</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/channel.optical.html#sionna.phy.channel.SSFM"><code class="docutils literal notranslate"><span class="pre">SSFM</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/channel.optical.html#sionna.phy.channel.EDFA"><code class="docutils literal notranslate"><span class="pre">EDFA</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/channel.optical.html#utility-functions">Utility functions</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/channel.optical.html#sionna.phy.channel.utils.time_frequency_vector"><code class="docutils literal notranslate"><span class="pre">time_frequency_vector()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../phy/api/channel.discrete.html">Discrete Channel Models</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/channel.discrete.html#sionna.phy.channel.BinaryErasureChannel"><code class="docutils literal notranslate"><span class="pre">BinaryErasureChannel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/channel.discrete.html#sionna.phy.channel.BinaryMemorylessChannel"><code class="docutils literal notranslate"><span class="pre">BinaryMemorylessChannel</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/channel.discrete.html#sionna.phy.channel.BinaryMemorylessChannel.llr_max"><code class="docutils literal notranslate"><span class="pre">BinaryMemorylessChannel.llr_max</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/channel.discrete.html#sionna.phy.channel.BinaryMemorylessChannel.temperature"><code class="docutils literal notranslate"><span class="pre">BinaryMemorylessChannel.temperature</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/channel.discrete.html#sionna.phy.channel.BinarySymmetricChannel"><code class="docutils literal notranslate"><span class="pre">BinarySymmetricChannel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/channel.discrete.html#sionna.phy.channel.BinaryZChannel"><code class="docutils literal notranslate"><span class="pre">BinaryZChannel</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../phy/api/ofdm.html">Orthogonal Frequency-Division Multiplexing (OFDM)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/ofdm.html#resource-grid">Resource Grid</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/ofdm.html#sionna.phy.ofdm.ResourceGrid"><code class="docutils literal notranslate"><span class="pre">ResourceGrid</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/ofdm.html#sionna.phy.ofdm.ResourceGridMapper"><code class="docutils literal notranslate"><span class="pre">ResourceGridMapper</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/ofdm.html#sionna.phy.ofdm.ResourceGridDemapper"><code class="docutils literal notranslate"><span class="pre">ResourceGridDemapper</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/ofdm.html#sionna.phy.ofdm.RemoveNulledSubcarriers"><code class="docutils literal notranslate"><span class="pre">RemoveNulledSubcarriers</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/ofdm.html#modulation-demodulation">Modulation &amp; Demodulation</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/ofdm.html#sionna.phy.ofdm.OFDMModulator"><code class="docutils literal notranslate"><span class="pre">OFDMModulator</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/ofdm.html#sionna.phy.ofdm.OFDMDemodulator"><code class="docutils literal notranslate"><span class="pre">OFDMDemodulator</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/ofdm.html#pilot-pattern">Pilot Pattern</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/ofdm.html#sionna.phy.ofdm.PilotPattern"><code class="docutils literal notranslate"><span class="pre">PilotPattern</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/ofdm.html#sionna.phy.ofdm.EmptyPilotPattern"><code class="docutils literal notranslate"><span class="pre">EmptyPilotPattern</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/ofdm.html#sionna.phy.ofdm.KroneckerPilotPattern"><code class="docutils literal notranslate"><span class="pre">KroneckerPilotPattern</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/ofdm.html#channel-estimation">Channel Estimation</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/ofdm.html#sionna.phy.ofdm.BaseChannelEstimator"><code class="docutils literal notranslate"><span class="pre">BaseChannelEstimator</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/ofdm.html#sionna.phy.ofdm.BaseChannelInterpolator"><code class="docutils literal notranslate"><span class="pre">BaseChannelInterpolator</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/ofdm.html#sionna.phy.ofdm.LSChannelEstimator"><code class="docutils literal notranslate"><span class="pre">LSChannelEstimator</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/ofdm.html#sionna.phy.ofdm.LinearInterpolator"><code class="docutils literal notranslate"><span class="pre">LinearInterpolator</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/ofdm.html#sionna.phy.ofdm.LMMSEInterpolator"><code class="docutils literal notranslate"><span class="pre">LMMSEInterpolator</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/ofdm.html#sionna.phy.ofdm.NearestNeighborInterpolator"><code class="docutils literal notranslate"><span class="pre">NearestNeighborInterpolator</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/ofdm.html#sionna.phy.ofdm.tdl_time_cov_mat"><code class="docutils literal notranslate"><span class="pre">tdl_time_cov_mat()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/ofdm.html#sionna.phy.ofdm.tdl_freq_cov_mat"><code class="docutils literal notranslate"><span class="pre">tdl_freq_cov_mat()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/ofdm.html#precoding">Precoding</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/ofdm.html#sionna.phy.ofdm.RZFPrecoder"><code class="docutils literal notranslate"><span class="pre">RZFPrecoder</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/ofdm.html#sionna.phy.ofdm.PrecodedChannel"><code class="docutils literal notranslate"><span class="pre">PrecodedChannel</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/ofdm.html#sionna.phy.ofdm.CBFPrecodedChannel"><code class="docutils literal notranslate"><span class="pre">CBFPrecodedChannel</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/ofdm.html#sionna.phy.ofdm.EyePrecodedChannel"><code class="docutils literal notranslate"><span class="pre">EyePrecodedChannel</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/ofdm.html#sionna.phy.ofdm.RZFPrecodedChannel"><code class="docutils literal notranslate"><span class="pre">RZFPrecodedChannel</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/ofdm.html#equalization">Equalization</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/ofdm.html#sionna.phy.ofdm.OFDMEqualizer"><code class="docutils literal notranslate"><span class="pre">OFDMEqualizer</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/ofdm.html#sionna.phy.ofdm.LMMSEEqualizer"><code class="docutils literal notranslate"><span class="pre">LMMSEEqualizer</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/ofdm.html#sionna.phy.ofdm.MFEqualizer"><code class="docutils literal notranslate"><span class="pre">MFEqualizer</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/ofdm.html#sionna.phy.ofdm.ZFEqualizer"><code class="docutils literal notranslate"><span class="pre">ZFEqualizer</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/ofdm.html#sionna.phy.ofdm.PostEqualizationSINR"><code class="docutils literal notranslate"><span class="pre">PostEqualizationSINR</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/ofdm.html#sionna.phy.ofdm.LMMSEPostEqualizationSINR"><code class="docutils literal notranslate"><span class="pre">LMMSEPostEqualizationSINR</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/ofdm.html#detection">Detection</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/ofdm.html#sionna.phy.ofdm.OFDMDetector"><code class="docutils literal notranslate"><span class="pre">OFDMDetector</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/ofdm.html#sionna.phy.ofdm.OFDMDetectorWithPrior"><code class="docutils literal notranslate"><span class="pre">OFDMDetectorWithPrior</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/ofdm.html#sionna.phy.ofdm.EPDetector"><code class="docutils literal notranslate"><span class="pre">EPDetector</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/ofdm.html#sionna.phy.ofdm.KBestDetector"><code class="docutils literal notranslate"><span class="pre">KBestDetector</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/ofdm.html#sionna.phy.ofdm.LinearDetector"><code class="docutils literal notranslate"><span class="pre">LinearDetector</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/ofdm.html#sionna.phy.ofdm.MaximumLikelihoodDetector"><code class="docutils literal notranslate"><span class="pre">MaximumLikelihoodDetector</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/ofdm.html#sionna.phy.ofdm.MaximumLikelihoodDetectorWithPrior"><code class="docutils literal notranslate"><span class="pre">MaximumLikelihoodDetectorWithPrior</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/ofdm.html#sionna.phy.ofdm.MMSEPICDetector"><code class="docutils literal notranslate"><span class="pre">MMSEPICDetector</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../phy/api/mimo.html">Multiple-Input Multiple-Output (MIMO)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/mimo.html#stream-management">Stream Management</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mimo.html#sionna.phy.mimo.StreamManagement"><code class="docutils literal notranslate"><span class="pre">StreamManagement</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/mimo.html#precoding">Precoding</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mimo.html#sionna.phy.mimo.cbf_precoding_matrix"><code class="docutils literal notranslate"><span class="pre">cbf_precoding_matrix()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mimo.html#sionna.phy.mimo.rzf_precoding_matrix"><code class="docutils literal notranslate"><span class="pre">rzf_precoding_matrix()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mimo.html#sionna.phy.mimo.rzf_precoder"><code class="docutils literal notranslate"><span class="pre">rzf_precoder()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mimo.html#sionna.phy.mimo.grid_of_beams_dft_ula"><code class="docutils literal notranslate"><span class="pre">grid_of_beams_dft_ula()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mimo.html#sionna.phy.mimo.grid_of_beams_dft"><code class="docutils literal notranslate"><span class="pre">grid_of_beams_dft()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mimo.html#sionna.phy.mimo.flatten_precoding_mat"><code class="docutils literal notranslate"><span class="pre">flatten_precoding_mat()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mimo.html#sionna.phy.mimo.normalize_precoding_power"><code class="docutils literal notranslate"><span class="pre">normalize_precoding_power()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/mimo.html#equalization">Equalization</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mimo.html#sionna.phy.mimo.lmmse_matrix"><code class="docutils literal notranslate"><span class="pre">lmmse_matrix()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mimo.html#sionna.phy.mimo.lmmse_equalizer"><code class="docutils literal notranslate"><span class="pre">lmmse_equalizer()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mimo.html#sionna.phy.mimo.mf_equalizer"><code class="docutils literal notranslate"><span class="pre">mf_equalizer()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mimo.html#sionna.phy.mimo.zf_equalizer"><code class="docutils literal notranslate"><span class="pre">zf_equalizer()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/mimo.html#detection">Detection</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mimo.html#sionna.phy.mimo.EPDetector"><code class="docutils literal notranslate"><span class="pre">EPDetector</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mimo.html#sionna.phy.mimo.KBestDetector"><code class="docutils literal notranslate"><span class="pre">KBestDetector</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mimo.html#sionna.phy.mimo.LinearDetector"><code class="docutils literal notranslate"><span class="pre">LinearDetector</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mimo.html#sionna.phy.mimo.MaximumLikelihoodDetector"><code class="docutils literal notranslate"><span class="pre">MaximumLikelihoodDetector</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mimo.html#sionna.phy.mimo.MMSEPICDetector"><code class="docutils literal notranslate"><span class="pre">MMSEPICDetector</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/mimo.html#utility-functions">Utility Functions</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mimo.html#sionna.phy.mimo.List2LLR"><code class="docutils literal notranslate"><span class="pre">List2LLR</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mimo.html#sionna.phy.mimo.List2LLRSimple"><code class="docutils literal notranslate"><span class="pre">List2LLRSimple</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mimo.html#sionna.phy.mimo.complex2real_vector"><code class="docutils literal notranslate"><span class="pre">complex2real_vector()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mimo.html#sionna.phy.mimo.real2complex_vector"><code class="docutils literal notranslate"><span class="pre">real2complex_vector()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mimo.html#sionna.phy.mimo.complex2real_matrix"><code class="docutils literal notranslate"><span class="pre">complex2real_matrix()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mimo.html#sionna.phy.mimo.real2complex_matrix"><code class="docutils literal notranslate"><span class="pre">real2complex_matrix()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mimo.html#sionna.phy.mimo.complex2real_covariance"><code class="docutils literal notranslate"><span class="pre">complex2real_covariance()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mimo.html#sionna.phy.mimo.real2complex_covariance"><code class="docutils literal notranslate"><span class="pre">real2complex_covariance()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mimo.html#sionna.phy.mimo.complex2real_channel"><code class="docutils literal notranslate"><span class="pre">complex2real_channel()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mimo.html#sionna.phy.mimo.real2complex_channel"><code class="docutils literal notranslate"><span class="pre">real2complex_channel()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/mimo.html#sionna.phy.mimo.whiten_channel"><code class="docutils literal notranslate"><span class="pre">whiten_channel()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../phy/api/nr.html">5G NR</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/nr.html#carrier">Carrier</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/nr.html#sionna.phy.nr.CarrierConfig"><code class="docutils literal notranslate"><span class="pre">CarrierConfig</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/nr.html#layer-mapping">Layer Mapping</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/nr.html#sionna.phy.nr.LayerMapper"><code class="docutils literal notranslate"><span class="pre">LayerMapper</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/nr.html#sionna.phy.nr.LayerDemapper"><code class="docutils literal notranslate"><span class="pre">LayerDemapper</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/nr.html#pusch">PUSCH</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/nr.html#sionna.phy.nr.PUSCHConfig"><code class="docutils literal notranslate"><span class="pre">PUSCHConfig</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/nr.html#sionna.phy.nr.PUSCHDMRSConfig"><code class="docutils literal notranslate"><span class="pre">PUSCHDMRSConfig</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/nr.html#sionna.phy.nr.PUSCHLSChannelEstimator"><code class="docutils literal notranslate"><span class="pre">PUSCHLSChannelEstimator</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/nr.html#sionna.phy.nr.PUSCHPilotPattern"><code class="docutils literal notranslate"><span class="pre">PUSCHPilotPattern</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/nr.html#sionna.phy.nr.PUSCHPrecoder"><code class="docutils literal notranslate"><span class="pre">PUSCHPrecoder</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/nr.html#sionna.phy.nr.PUSCHReceiver"><code class="docutils literal notranslate"><span class="pre">PUSCHReceiver</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/nr.html#sionna.phy.nr.PUSCHTransmitter"><code class="docutils literal notranslate"><span class="pre">PUSCHTransmitter</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/nr.html#transport-block">Transport Block</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/nr.html#sionna.phy.nr.TBConfig"><code class="docutils literal notranslate"><span class="pre">TBConfig</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/nr.html#sionna.phy.nr.TBEncoder"><code class="docutils literal notranslate"><span class="pre">TBEncoder</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/nr.html#sionna.phy.nr.TBDecoder"><code class="docutils literal notranslate"><span class="pre">TBDecoder</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/nr.html#utils">Utils</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/nr.html#sionna.phy.nr.utils.calculate_tb_size"><code class="docutils literal notranslate"><span class="pre">calculate_tb_size()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/nr.html#sionna.phy.nr.utils.generate_prng_seq"><code class="docutils literal notranslate"><span class="pre">generate_prng_seq()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/nr.html#sionna.phy.nr.utils.decode_mcs_index"><code class="docutils literal notranslate"><span class="pre">decode_mcs_index()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/nr.html#sionna.phy.nr.utils.calculate_num_coded_bits"><code class="docutils literal notranslate"><span class="pre">calculate_num_coded_bits()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/nr.html#sionna.phy.nr.utils.TransportBlockNR"><code class="docutils literal notranslate"><span class="pre">TransportBlockNR</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/nr.html#sionna.phy.nr.utils.CodedAWGNChannelNR"><code class="docutils literal notranslate"><span class="pre">CodedAWGNChannelNR</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/nr.html#sionna.phy.nr.utils.MCSDecoderNR"><code class="docutils literal notranslate"><span class="pre">MCSDecoderNR</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../phy/api/signal.html">Signal</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/signal.html#filters">Filters</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/signal.html#sionna.phy.signal.SincFilter"><code class="docutils literal notranslate"><span class="pre">SincFilter</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/signal.html#sionna.phy.signal.RaisedCosineFilter"><code class="docutils literal notranslate"><span class="pre">RaisedCosineFilter</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/signal.html#sionna.phy.signal.RootRaisedCosineFilter"><code class="docutils literal notranslate"><span class="pre">RootRaisedCosineFilter</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/signal.html#sionna.phy.signal.CustomFilter"><code class="docutils literal notranslate"><span class="pre">CustomFilter</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/signal.html#sionna.phy.signal.Filter"><code class="docutils literal notranslate"><span class="pre">Filter</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/signal.html#window-functions">Window functions</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/signal.html#sionna.phy.signal.HannWindow"><code class="docutils literal notranslate"><span class="pre">HannWindow</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/signal.html#sionna.phy.signal.HammingWindow"><code class="docutils literal notranslate"><span class="pre">HammingWindow</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/signal.html#sionna.phy.signal.BlackmanWindow"><code class="docutils literal notranslate"><span class="pre">BlackmanWindow</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/signal.html#sionna.phy.signal.CustomWindow"><code class="docutils literal notranslate"><span class="pre">CustomWindow</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/signal.html#sionna.phy.signal.Window"><code class="docutils literal notranslate"><span class="pre">Window</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/signal.html#utility-functions">Utility Functions</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/signal.html#sionna.phy.signal.convolve"><code class="docutils literal notranslate"><span class="pre">convolve()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/signal.html#sionna.phy.signal.fft"><code class="docutils literal notranslate"><span class="pre">fft()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/signal.html#sionna.phy.signal.ifft"><code class="docutils literal notranslate"><span class="pre">ifft()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/signal.html#sionna.phy.signal.Upsampling"><code class="docutils literal notranslate"><span class="pre">Upsampling</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/signal.html#sionna.phy.signal.Downsampling"><code class="docutils literal notranslate"><span class="pre">Downsampling</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/signal.html#sionna.phy.signal.empirical_psd"><code class="docutils literal notranslate"><span class="pre">empirical_psd()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/signal.html#sionna.phy.signal.empirical_aclr"><code class="docutils literal notranslate"><span class="pre">empirical_aclr()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../phy/api/utils.html">Utility Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/utils.html#linear-algebra">Linear Algebra</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/utils.html#sionna.phy.utils.inv_cholesky"><code class="docutils literal notranslate"><span class="pre">inv_cholesky()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/utils.html#sionna.phy.utils.matrix_pinv"><code class="docutils literal notranslate"><span class="pre">matrix_pinv()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/utils.html#metrics">Metrics</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/utils.html#sionna.phy.utils.compute_ber"><code class="docutils literal notranslate"><span class="pre">compute_ber()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/utils.html#sionna.phy.utils.compute_bler"><code class="docutils literal notranslate"><span class="pre">compute_bler()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/utils.html#sionna.phy.utils.compute_ser"><code class="docutils literal notranslate"><span class="pre">compute_ser()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/utils.html#sionna.phy.utils.count_block_errors"><code class="docutils literal notranslate"><span class="pre">count_block_errors()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/utils.html#sionna.phy.utils.count_errors"><code class="docutils literal notranslate"><span class="pre">count_errors()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/utils.html#miscellaneous">Miscellaneous</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/utils.html#sionna.phy.utils.dbm_to_watt"><code class="docutils literal notranslate"><span class="pre">dbm_to_watt()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/utils.html#sionna.phy.utils.db_to_lin"><code class="docutils literal notranslate"><span class="pre">db_to_lin</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/utils.html#sionna.phy.utils.DeepUpdateDict"><code class="docutils literal notranslate"><span class="pre">DeepUpdateDict</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/utils.html#sionna.phy.utils.dict_keys_to_int"><code class="docutils literal notranslate"><span class="pre">dict_keys_to_int()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/utils.html#sionna.phy.utils.ebnodb2no"><code class="docutils literal notranslate"><span class="pre">ebnodb2no()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/utils.html#sionna.phy.utils.complex_normal"><code class="docutils literal notranslate"><span class="pre">complex_normal()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/utils.html#sionna.phy.utils.hard_decisions"><code class="docutils literal notranslate"><span class="pre">hard_decisions()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/utils.html#sionna.phy.utils.Interpolate"><code class="docutils literal notranslate"><span class="pre">Interpolate</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/utils.html#sionna.phy.utils.lin_to_db"><code class="docutils literal notranslate"><span class="pre">lin_to_db</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/utils.html#sionna.phy.utils.log2"><code class="docutils literal notranslate"><span class="pre">log2()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/utils.html#sionna.phy.utils.log10"><code class="docutils literal notranslate"><span class="pre">log10()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/utils.html#sionna.phy.utils.MCSDecoder"><code class="docutils literal notranslate"><span class="pre">MCSDecoder</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/utils.html#sionna.phy.utils.scalar_to_shaped_tensor"><code class="docutils literal notranslate"><span class="pre">scalar_to_shaped_tensor()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/utils.html#sionna.phy.utils.sim_ber"><code class="docutils literal notranslate"><span class="pre">sim_ber()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/utils.html#sionna.phy.utils.SingleLinkChannel"><code class="docutils literal notranslate"><span class="pre">SingleLinkChannel</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/utils.html#sionna.phy.utils.SplineGriddataInterpolation"><code class="docutils literal notranslate"><span class="pre">SplineGriddataInterpolation</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/utils.html#sionna.phy.utils.to_list"><code class="docutils literal notranslate"><span class="pre">to_list()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/utils.html#sionna.phy.utils.TransportBlock"><code class="docutils literal notranslate"><span class="pre">TransportBlock</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/utils.html#sionna.phy.utils.watt_to_dbm"><code class="docutils literal notranslate"><span class="pre">watt_to_dbm()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/utils.html#numerics">Numerics</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/utils.html#sionna.phy.utils.bisection_method"><code class="docutils literal notranslate"><span class="pre">bisection_method()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/utils.html#plotting">Plotting</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/utils.html#sionna.phy.utils.plotting.plot_ber"><code class="docutils literal notranslate"><span class="pre">plot_ber()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/utils.html#sionna.phy.utils.plotting.PlotBER"><code class="docutils literal notranslate"><span class="pre">PlotBER</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/utils.html#tensors">Tensors</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/utils.html#sionna.phy.utils.expand_to_rank"><code class="docutils literal notranslate"><span class="pre">expand_to_rank()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/utils.html#sionna.phy.utils.flatten_dims"><code class="docutils literal notranslate"><span class="pre">flatten_dims()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/utils.html#sionna.phy.utils.flatten_last_dims"><code class="docutils literal notranslate"><span class="pre">flatten_last_dims()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/utils.html#sionna.phy.utils.insert_dims"><code class="docutils literal notranslate"><span class="pre">insert_dims()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/utils.html#sionna.phy.utils.split_dim"><code class="docutils literal notranslate"><span class="pre">split_dim()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/utils.html#sionna.phy.utils.diag_part_axis"><code class="docutils literal notranslate"><span class="pre">diag_part_axis()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/utils.html#sionna.phy.utils.flatten_multi_index"><code class="docutils literal notranslate"><span class="pre">flatten_multi_index()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/utils.html#sionna.phy.utils.gather_from_batched_indices"><code class="docutils literal notranslate"><span class="pre">gather_from_batched_indices()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/utils.html#sionna.phy.utils.tensor_values_are_in_set"><code class="docutils literal notranslate"><span class="pre">tensor_values_are_in_set()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/utils.html#sionna.phy.utils.enumerate_indices"><code class="docutils literal notranslate"><span class="pre">enumerate_indices()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../phy/api/developers.html">For Developers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/developers.html#sionna.phy.Object"><code class="docutils literal notranslate"><span class="pre">Object</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/developers.html#sionna.phy.Object.cdtype"><code class="docutils literal notranslate"><span class="pre">Object.cdtype</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/developers.html#sionna.phy.Object.precision"><code class="docutils literal notranslate"><span class="pre">Object.precision</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/developers.html#sionna.phy.Object.rdtype"><code class="docutils literal notranslate"><span class="pre">Object.rdtype</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/api/developers.html#sionna.phy.Block"><code class="docutils literal notranslate"><span class="pre">Block</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/developers.html#sionna.phy.Block.build"><code class="docutils literal notranslate"><span class="pre">Block.build()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/developers.html#sionna.phy.Block.built"><code class="docutils literal notranslate"><span class="pre">Block.built</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../phy/api/developers.html#sionna.phy.Block.call"><code class="docutils literal notranslate"><span class="pre">Block.call()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../phy/developer/developer.html">Developer Guides</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../phy/developer/dev_matrix_inversion.html">Matrix inversion</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/developer/dev_matrix_inversion.html#solving-linear-systems">Solving linear systems</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/developer/dev_matrix_inversion.html#correlated-random-vectors">Correlated random vectors</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../phy/developer/dev_rng.html">Random number generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../phy/developer/dev_sionna_block.html">Sionna Block and Object</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../phy/developer/dev_sionna_block.html#understanding-sionna-blocks">Understanding Sionna Blocks</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../sys/index.html">System Level (SYS)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../sys/tutorials.html">Tutorials</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../sys/tutorials.html#beginners">Beginners</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../sys/tutorials.html#experts">Experts</a><ul class="simple">
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../sys/api/sys.html">API Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../sys/api/abstraction.html">PHY Abstraction</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../sys/api/abstraction.html#sionna.sys.EffectiveSINR"><code class="docutils literal notranslate"><span class="pre">EffectiveSINR</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/abstraction.html#sionna.sys.EffectiveSINR.calibrate"><code class="docutils literal notranslate"><span class="pre">EffectiveSINR.calibrate()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../sys/api/abstraction.html#sionna.sys.EESM"><code class="docutils literal notranslate"><span class="pre">EESM</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/abstraction.html#sionna.sys.EESM.beta_table"><code class="docutils literal notranslate"><span class="pre">EESM.beta_table</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/abstraction.html#sionna.sys.EESM.beta_table_filenames"><code class="docutils literal notranslate"><span class="pre">EESM.beta_table_filenames</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/abstraction.html#sionna.sys.EESM.beta_tensor"><code class="docutils literal notranslate"><span class="pre">EESM.beta_tensor</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/abstraction.html#sionna.sys.EESM.validate_beta_table"><code class="docutils literal notranslate"><span class="pre">EESM.validate_beta_table()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../sys/api/abstraction.html#sionna.sys.PHYAbstraction"><code class="docutils literal notranslate"><span class="pre">PHYAbstraction</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/abstraction.html#sionna.sys.PHYAbstraction.bler_interp_delta"><code class="docutils literal notranslate"><span class="pre">PHYAbstraction.bler_interp_delta</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/abstraction.html#sionna.sys.PHYAbstraction.bler_table"><code class="docutils literal notranslate"><span class="pre">PHYAbstraction.bler_table</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/abstraction.html#sionna.sys.PHYAbstraction.bler_table_filenames"><code class="docutils literal notranslate"><span class="pre">PHYAbstraction.bler_table_filenames</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/abstraction.html#sionna.sys.PHYAbstraction.bler_table_interp"><code class="docutils literal notranslate"><span class="pre">PHYAbstraction.bler_table_interp</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/abstraction.html#sionna.sys.PHYAbstraction.cbs_interp_min_max_delta"><code class="docutils literal notranslate"><span class="pre">PHYAbstraction.cbs_interp_min_max_delta</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/abstraction.html#sionna.sys.PHYAbstraction.get_bler"><code class="docutils literal notranslate"><span class="pre">PHYAbstraction.get_bler()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/abstraction.html#sionna.sys.PHYAbstraction.get_idx_from_grid"><code class="docutils literal notranslate"><span class="pre">PHYAbstraction.get_idx_from_grid()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/abstraction.html#sionna.sys.PHYAbstraction.load_table"><code class="docutils literal notranslate"><span class="pre">PHYAbstraction.load_table()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/abstraction.html#sionna.sys.PHYAbstraction.new_bler_table"><code class="docutils literal notranslate"><span class="pre">PHYAbstraction.new_bler_table()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/abstraction.html#sionna.sys.PHYAbstraction.plot"><code class="docutils literal notranslate"><span class="pre">PHYAbstraction.plot()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/abstraction.html#sionna.sys.PHYAbstraction.snr_db_interp_min_max_delta"><code class="docutils literal notranslate"><span class="pre">PHYAbstraction.snr_db_interp_min_max_delta</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/abstraction.html#sionna.sys.PHYAbstraction.snr_table_interp"><code class="docutils literal notranslate"><span class="pre">PHYAbstraction.snr_table_interp</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/abstraction.html#sionna.sys.PHYAbstraction.validate_bler_table"><code class="docutils literal notranslate"><span class="pre">PHYAbstraction.validate_bler_table()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../sys/api/link_adaptation.html">Link Adaptation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../sys/api/link_adaptation.html#sionna.sys.InnerLoopLinkAdaptation"><code class="docutils literal notranslate"><span class="pre">InnerLoopLinkAdaptation</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/link_adaptation.html#sionna.sys.InnerLoopLinkAdaptation.bler_target"><code class="docutils literal notranslate"><span class="pre">InnerLoopLinkAdaptation.bler_target</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../sys/api/link_adaptation.html#sionna.sys.OuterLoopLinkAdaptation"><code class="docutils literal notranslate"><span class="pre">OuterLoopLinkAdaptation</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/link_adaptation.html#sionna.sys.OuterLoopLinkAdaptation.bler_target"><code class="docutils literal notranslate"><span class="pre">OuterLoopLinkAdaptation.bler_target</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/link_adaptation.html#sionna.sys.OuterLoopLinkAdaptation.delta_down"><code class="docutils literal notranslate"><span class="pre">OuterLoopLinkAdaptation.delta_down</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/link_adaptation.html#sionna.sys.OuterLoopLinkAdaptation.delta_up"><code class="docutils literal notranslate"><span class="pre">OuterLoopLinkAdaptation.delta_up</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/link_adaptation.html#sionna.sys.OuterLoopLinkAdaptation.offset"><code class="docutils literal notranslate"><span class="pre">OuterLoopLinkAdaptation.offset</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/link_adaptation.html#sionna.sys.OuterLoopLinkAdaptation.offset_max"><code class="docutils literal notranslate"><span class="pre">OuterLoopLinkAdaptation.offset_max</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/link_adaptation.html#sionna.sys.OuterLoopLinkAdaptation.offset_min"><code class="docutils literal notranslate"><span class="pre">OuterLoopLinkAdaptation.offset_min</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/link_adaptation.html#sionna.sys.OuterLoopLinkAdaptation.reset"><code class="docutils literal notranslate"><span class="pre">OuterLoopLinkAdaptation.reset()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/link_adaptation.html#sionna.sys.OuterLoopLinkAdaptation.sinr_eff_db_last"><code class="docutils literal notranslate"><span class="pre">OuterLoopLinkAdaptation.sinr_eff_db_last</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../sys/api/link_adaptation.html#note">Note</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../sys/api/power_control.html">Power Control</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../sys/api/power_control.html#uplink">Uplink</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/power_control.html#sionna.sys.open_loop_uplink_power_control"><code class="docutils literal notranslate"><span class="pre">open_loop_uplink_power_control()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../sys/api/power_control.html#downlink">Downlink</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/power_control.html#sionna.sys.downlink_fair_power_control"><code class="docutils literal notranslate"><span class="pre">downlink_fair_power_control()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../sys/api/scheduling.html">Scheduling</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../sys/api/scheduling.html#sionna.sys.PFSchedulerSUMIMO"><code class="docutils literal notranslate"><span class="pre">PFSchedulerSUMIMO</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/scheduling.html#sionna.sys.PFSchedulerSUMIMO.beta"><code class="docutils literal notranslate"><span class="pre">PFSchedulerSUMIMO.beta</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/scheduling.html#sionna.sys.PFSchedulerSUMIMO.pf_metric"><code class="docutils literal notranslate"><span class="pre">PFSchedulerSUMIMO.pf_metric</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/scheduling.html#sionna.sys.PFSchedulerSUMIMO.rate_achieved_past"><code class="docutils literal notranslate"><span class="pre">PFSchedulerSUMIMO.rate_achieved_past</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../sys/api/topology.html">Multicell Topology</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../sys/api/topology.html#sionna.sys.topology.Hexagon"><code class="docutils literal notranslate"><span class="pre">Hexagon</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/topology.html#sionna.sys.topology.Hexagon.coord_axial"><code class="docutils literal notranslate"><span class="pre">Hexagon.coord_axial</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/topology.html#sionna.sys.topology.Hexagon.coord_dict"><code class="docutils literal notranslate"><span class="pre">Hexagon.coord_dict()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/topology.html#sionna.sys.topology.Hexagon.coord_euclid"><code class="docutils literal notranslate"><span class="pre">Hexagon.coord_euclid</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/topology.html#sionna.sys.topology.Hexagon.coord_offset"><code class="docutils literal notranslate"><span class="pre">Hexagon.coord_offset</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/topology.html#sionna.sys.topology.Hexagon.corners"><code class="docutils literal notranslate"><span class="pre">Hexagon.corners()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/topology.html#sionna.sys.topology.Hexagon.neighbor"><code class="docutils literal notranslate"><span class="pre">Hexagon.neighbor()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/topology.html#sionna.sys.topology.Hexagon.radius"><code class="docutils literal notranslate"><span class="pre">Hexagon.radius</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../sys/api/topology.html#sionna.sys.topology.HexGrid"><code class="docutils literal notranslate"><span class="pre">HexGrid</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/topology.html#sionna.sys.topology.HexGrid.cell_height"><code class="docutils literal notranslate"><span class="pre">HexGrid.cell_height</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/topology.html#sionna.sys.topology.HexGrid.cell_loc"><code class="docutils literal notranslate"><span class="pre">HexGrid.cell_loc</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/topology.html#sionna.sys.topology.HexGrid.cell_radius"><code class="docutils literal notranslate"><span class="pre">HexGrid.cell_radius</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/topology.html#sionna.sys.topology.HexGrid.center_loc"><code class="docutils literal notranslate"><span class="pre">HexGrid.center_loc</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/topology.html#sionna.sys.topology.HexGrid.grid"><code class="docutils literal notranslate"><span class="pre">HexGrid.grid</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/topology.html#sionna.sys.topology.HexGrid.isd"><code class="docutils literal notranslate"><span class="pre">HexGrid.isd</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/topology.html#sionna.sys.topology.HexGrid.mirror_cell_loc"><code class="docutils literal notranslate"><span class="pre">HexGrid.mirror_cell_loc</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/topology.html#sionna.sys.topology.HexGrid.num_cells"><code class="docutils literal notranslate"><span class="pre">HexGrid.num_cells</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/topology.html#sionna.sys.topology.HexGrid.num_rings"><code class="docutils literal notranslate"><span class="pre">HexGrid.num_rings</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../sys/api/topology.html#sionna.sys.topology.HexGrid.show"><code class="docutils literal notranslate"><span class="pre">HexGrid.show()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../sys/api/topology.html#sionna.sys.topology.gen_hexgrid_topology"><code class="docutils literal notranslate"><span class="pre">gen_hexgrid_topology()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../sys/api/topology.html#sionna.sys.topology.get_num_hex_in_grid"><code class="docutils literal notranslate"><span class="pre">get_num_hex_in_grid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../sys/api/topology.html#sionna.sys.topology.convert_hex_coord"><code class="docutils literal notranslate"><span class="pre">convert_hex_coord()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../sys/api/utils.html">Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../sys/api/utils.html#sionna.sys.utils.get_pathloss"><code class="docutils literal notranslate"><span class="pre">get_pathloss()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../sys/api/utils.html#sionna.sys.utils.is_scheduled_in_slot"><code class="docutils literal notranslate"><span class="pre">is_scheduled_in_slot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../sys/api/utils.html#sionna.sys.utils.spread_across_subcarriers"><code class="docutils literal notranslate"><span class="pre">spread_across_subcarriers()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../made_with_sionna.html">“Made with Sionna”</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/NVlabs/sionna/discussions">Discussions</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/NVlabs/sionna/issues">Report an Issue</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/NVlabs/sionna/pulls">Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../citation.html">Citation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Older Versions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://jhoydis.github.io/sionna-0.19.2-doc">v0.19.2</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Sionna</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">sionna.phy.channel.time_channel</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for sionna.phy.channel.time_channel</h1><div class="highlight"><pre>
+<span></span><span class="c1">#</span>
+<span class="c1"># SPDX-FileCopyrightText: Copyright (c) 2021-2025 NVIDIA CORPORATION &amp; AFFILIATES. All rights reserved.</span>
+<span class="c1"># SPDX-License-Identifier: Apache-2.0#</span>
+<span class="sd">&quot;&quot;&quot;Layer for implementing the channel in the time domain&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">tensorflow</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">tf</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">sionna.phy</span><span class="w"> </span><span class="kn">import</span> <span class="n">Block</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">GenerateTimeChannel</span><span class="p">,</span> <span class="n">ApplyTimeChannel</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">time_lag_discrete_time_channel</span>
+
+<div class="viewcode-block" id="TimeChannel">
+<a class="viewcode-back" href="../../../../phy/api/channel.wireless.html#sionna.phy.channel.TimeChannel">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TimeChannel</span><span class="p">(</span><span class="n">Block</span><span class="p">):</span>
+    <span class="c1"># pylint: disable=line-too-long</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generates channel responses and applies them to channel inputs in the time domain</span>
+
+<span class="sd">    The channel output consists of ``num_time_samples`` + ``l_max`` - ``l_min``</span>
+<span class="sd">    time samples, as it is the result of filtering the channel input of length</span>
+<span class="sd">    ``num_time_samples`` with the time-variant channel filter  of length</span>
+<span class="sd">    ``l_max`` - ``l_min`` + 1. In the case of a single-input single-output link and given a sequence of channel</span>
+<span class="sd">    inputs :math:`x_0,\cdots,x_{N_B}`, where :math:`N_B` is ``num_time_samples``, this</span>
+<span class="sd">    layer outputs</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        y_b = \sum_{\ell = L_{\text{min}}}^{L_{\text{max}}} x_{b-\ell} \bar{h}_{b,\ell} + w_b</span>
+
+<span class="sd">    where :math:`L_{\text{min}}` corresponds ``l_min``, :math:`L_{\text{max}}` to ``l_max``, :math:`w_b` to</span>
+<span class="sd">    the additive noise, and :math:`\bar{h}_{b,\ell}` to the</span>
+<span class="sd">    :math:`\ell^{th}` tap of the :math:`b^{th}` channel sample.</span>
+<span class="sd">    This layer outputs :math:`y_b` for :math:`b` ranging from :math:`L_{\text{min}}` to</span>
+<span class="sd">    :math:`N_B + L_{\text{max}} - 1`, and :math:`x_{b}` is set to 0 for :math:`b &lt; 0` or :math:`b \geq N_B`.</span>
+<span class="sd">    The channel taps :math:`\bar{h}_{b,\ell}` are computed assuming a sinc filter</span>
+<span class="sd">    is used for pulse shaping and receive filtering. Therefore, given a channel impulse response</span>
+<span class="sd">    :math:`(a_{m}(t), \tau_{m}), 0 \leq m \leq M-1`, generated by the ``channel_model``,</span>
+<span class="sd">    the channel taps are computed as follows:</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        \bar{h}_{b, \ell}</span>
+<span class="sd">        = \sum_{m=0}^{M-1} a_{m}\left(\frac{b}{W}\right)</span>
+<span class="sd">            \text{sinc}\left( \ell - W\tau_{m} \right)</span>
+
+<span class="sd">    for :math:`\ell` ranging from ``l_min`` to ``l_max``, and where :math:`W` is</span>
+<span class="sd">    the ``bandwidth``.</span>
+
+<span class="sd">    For multiple-input multiple-output (MIMO) links, the channel output is computed for each antenna of each receiver and by summing over all the antennas of all transmitters.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    channel_model : :class:`~sionna.phy.channel.ChannelModel`</span>
+<span class="sd">        Used channel model</span>
+
+<span class="sd">    bandwidth : `float`</span>
+<span class="sd">        Bandwidth (:math:`W`) [Hz]</span>
+
+<span class="sd">    num_time_samples : `int`</span>
+<span class="sd">        Number of time samples forming the channel input (:math:`N_B`)</span>
+
+<span class="sd">    maximum_delay_spread : `float`, (default 3e-6)</span>
+<span class="sd">        Maximum delay spread [s].</span>
+<span class="sd">        Used to compute the default value of ``l_max`` if ``l_max`` is set to</span>
+<span class="sd">        `None`. If a value is given for ``l_max``, this parameter is not used.</span>
+<span class="sd">        It defaults to 3us, which was found</span>
+<span class="sd">        to be large enough to include most significant paths with all channel</span>
+<span class="sd">        models included in Sionna assuming a nominal delay spread of 100ns.</span>
+
+<span class="sd">    l_min : `None` (default) | `int`</span>
+<span class="sd">        Smallest time-lag for the discrete complex baseband channel (:math:`L_{\text{min}}`).</span>
+<span class="sd">        If set to `None`, defaults to the value given by :func:`time_lag_discrete_time_channel`.</span>
+
+<span class="sd">    l_max : `None` (default) | `int`</span>
+<span class="sd">        Largest time-lag for the discrete complex baseband channel (:math:`L_{\text{max}}`).</span>
+<span class="sd">        If set to `None`, it is computed from ``bandwidth`` and ``maximum_delay_spread``</span>
+<span class="sd">        using :func:`time_lag_discrete_time_channel`. If it is not set to `None`,</span>
+<span class="sd">        then the parameter ``maximum_delay_spread`` is not used.</span>
+
+<span class="sd">    normalize_channel : `bool`, (default `False`)</span>
+<span class="sd">        If set to `True`, the channel is normalized over the block size</span>
+<span class="sd">        to ensure unit average energy per time step.</span>
+
+<span class="sd">    return_channel : `bool`, (default `False`)</span>
+<span class="sd">        If set to `True`, the channel response is returned in addition to the</span>
+<span class="sd">        channel output.</span>
+
+<span class="sd">    precision : `None` (default) | &quot;single&quot; | &quot;double&quot;</span>
+<span class="sd">        Precision used for internal calculations and outputs.</span>
+<span class="sd">        If set to `None`,</span>
+<span class="sd">        :attr:`~sionna.phy.config.Config.precision` is used.</span>
+
+<span class="sd">    Input</span>
+<span class="sd">    -----</span>
+<span class="sd">    x :  [batch size, num_tx, num_tx_ant, num_time_samples], `tf.complex`</span>
+<span class="sd">        Channel inputs</span>
+
+<span class="sd">    no : `None` (default) | Tensor, `tf.float`</span>
+<span class="sd">        Tensor whose shape can be broadcast to the shape of the</span>
+<span class="sd">        channel outputs: [batch size, num_rx, num_rx_ant, num_time_samples].</span>
+<span class="sd">        The (optional) noise power ``no`` is per complex dimension. If ``no`` is a scalar,</span>
+<span class="sd">        noise of the same variance will be added to the outputs.</span>
+<span class="sd">        If ``no`` is a tensor, it must have a shape that can be broadcast to</span>
+<span class="sd">        the shape of the channel outputs. This allows, e.g., adding noise of</span>
+<span class="sd">        different variance to each example in a batch. If ``no`` has a lower</span>
+<span class="sd">        rank than the channel outputs, then ``no`` will be broadcast to the</span>
+<span class="sd">        shape of the channel outputs by adding dummy dimensions after the last</span>
+<span class="sd">        axis.</span>
+
+<span class="sd">    Output</span>
+<span class="sd">    -------</span>
+<span class="sd">    y : [batch size, num_rx, num_rx_ant, num_time_samples + l_max - l_min], `tf.complex`</span>
+<span class="sd">        Channel outputs</span>
+<span class="sd">        The channel output consists of ``num_time_samples`` + ``l_max`` - ``l_min``</span>
+<span class="sd">        time samples, as it is the result of filtering the channel input of length</span>
+<span class="sd">        ``num_time_samples`` with the time-variant channel filter  of length</span>
+<span class="sd">        ``l_max`` - ``l_min`` + 1.</span>
+
+<span class="sd">    h_time : [batch size, num_rx, num_rx_ant, num_tx, num_tx_ant, num_time_samples + l_max - l_min, l_max - l_min + 1], `tf.complex`</span>
+<span class="sd">        (Optional) Channel responses. Returned only if ``return_channel``</span>
+<span class="sd">        is set to `True`.</span>
+<span class="sd">        For each batch example, ``num_time_samples`` + ``l_max`` - ``l_min`` time</span>
+<span class="sd">        steps of the channel realizations are generated to filter the channel input.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">channel_model</span><span class="p">,</span> <span class="n">bandwidth</span><span class="p">,</span> <span class="n">num_time_samples</span><span class="p">,</span>
+                 <span class="n">maximum_delay_spread</span><span class="o">=</span><span class="mf">3e-6</span><span class="p">,</span> <span class="n">l_min</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">l_max</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">normalize_channel</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">return_channel</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="n">precision</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="n">precision</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c1"># Setting l_min and l_max to default values if not given by the user</span>
+        <span class="n">l_min_default</span><span class="p">,</span> <span class="n">l_max_default</span> <span class="o">=</span> <span class="n">time_lag_discrete_time_channel</span><span class="p">(</span><span class="n">bandwidth</span><span class="p">,</span>
+                                                            <span class="n">maximum_delay_spread</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">l_min</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">l_min</span> <span class="o">=</span> <span class="n">l_min_default</span>
+        <span class="k">if</span> <span class="n">l_max</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">l_max</span> <span class="o">=</span> <span class="n">l_max_default</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cir_sampler</span> <span class="o">=</span> <span class="n">channel_model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_bandwidth</span> <span class="o">=</span> <span class="n">bandwidth</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_num_time_steps</span> <span class="o">=</span> <span class="n">num_time_samples</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_l_min</span> <span class="o">=</span> <span class="n">l_min</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_l_max</span> <span class="o">=</span> <span class="n">l_max</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_l_tot</span> <span class="o">=</span> <span class="n">l_max</span><span class="o">-</span><span class="n">l_min</span><span class="o">+</span><span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_normalize_channel</span> <span class="o">=</span> <span class="n">normalize_channel</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_return_channel</span> <span class="o">=</span> <span class="n">return_channel</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_generate_channel</span> <span class="o">=</span> <span class="n">GenerateTimeChannel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_cir_sampler</span><span class="p">,</span>
+                                                     <span class="bp">self</span><span class="o">.</span><span class="n">_bandwidth</span><span class="p">,</span>
+                                                     <span class="bp">self</span><span class="o">.</span><span class="n">_num_time_steps</span><span class="p">,</span>
+                                                     <span class="bp">self</span><span class="o">.</span><span class="n">_l_min</span><span class="p">,</span>
+                                                     <span class="bp">self</span><span class="o">.</span><span class="n">_l_max</span><span class="p">,</span>
+                                                     <span class="bp">self</span><span class="o">.</span><span class="n">_normalize_channel</span><span class="p">,</span>
+                                                     <span class="n">precision</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">precision</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_apply_channel</span> <span class="o">=</span> <span class="n">ApplyTimeChannel</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_time_steps</span><span class="p">,</span>
+                                                <span class="bp">self</span><span class="o">.</span><span class="n">_l_tot</span><span class="p">,</span>
+                                                <span class="n">precision</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">precision</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">no</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">h_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_generate_channel</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">x</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_apply_channel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">h_time</span><span class="p">,</span> <span class="n">no</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_return_channel</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">y</span><span class="p">,</span> <span class="n">h_time</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">y</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021-2025 NVIDIA CORPORATION.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>
