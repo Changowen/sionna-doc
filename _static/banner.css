@@ -28,12 +28,18 @@
 
 .school-text {
   text-align: left;
+  /* 允許這個文字區塊在空間不足時收縮 */
+  flex-shrink: 1; 
+  /* 確保文字在區塊內可以自動換行 */
+  min-width: 0;
 }
 
 .school-title {
   font-size: 26px;
   font-weight: bold;
   letter-spacing: 1px;
+  /* 允許在任意字元或詞之間換行，防止溢出 */
+  word-break: break-word;
 }
 
 .school-subtitle {
