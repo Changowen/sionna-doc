@@ -2,8 +2,7 @@
   width: 100%;
   background: linear-gradient(90deg, #0b1220, #1e293b);
   color: white;
-  padding: 18px 10px;
-  text-align: center;
+  padding: 16px 10px;
   border-bottom: 4px solid #38bdf8;
   box-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
@@ -39,6 +38,6 @@
 
 .school-subtitle {
   font-size: 16px;
-  margin-top: 6px;
+  margin-top: 4px;
   opacity: 0.9;
 }
